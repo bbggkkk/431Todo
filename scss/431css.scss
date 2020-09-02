@@ -11,14 +11,11 @@ $purple     : (#6A4EFF,#d4ccff,#a899ff,#7d66ff,#5233ff,#2600ff,#1f00cc,#170099,#
 $colorVar   : ($gray,$blue,$yellow,$danger,$success,$purple);
 $colorName  : ("gray","blue","yellow","danger","success","purple");
 
-@mixin tblr ($name,$css,$val,$unit){
-    .#{$name}t#{$val}  { #{$css}-top:#{$val}#{$unit} !important; }
-    .#{$name}b#{$val}  { #{$css}-bottom:#{$val}#{$unit} !important; }
-    .#{$name}l#{$val}  { #{$css}-left:#{$val}#{$unit} !important; }
-    .#{$name}r#{$val}  { #{$css}-right:#{$val}#{$unit} !important; }
+* {
+    box-sizing:border-box !important;
 }
-
-body,html,ol,ul,li,a,img {
+img { text-align:bottom; }
+body,html,ol,ul,li,a,img,button,input {
     //초기화
     all:unset;
 }
@@ -27,19 +24,34 @@ body {
     color:$dark;
 }
 
+/* 크기 */
+@mixin tblr ($name,$css,$val,$unit){
+    .#{$name}t#{$val}  { #{$css}-top:#{$val}#{$unit} !important; }
+    .#{$name}b#{$val}  { #{$css}-bottom:#{$val}#{$unit} !important; }
+    .#{$name}l#{$val}  { #{$css}-left:#{$val}#{$unit} !important; }
+    .#{$name}r#{$val}  { #{$css}-right:#{$val}#{$unit} !important; }
+}
 
 $i:0;
 @for $i from 0 to 201 {
-    @include tblr("m","margin",$i,"px");
-    @include tblr("p","padding",$i,"px");
-    .w#{$i}p { width:#{$i}% !important; }
-    .h#{$i}p { height:#{$i}% !important; }
-}
-@for $i from 0 to 501 {
-    .w#{$i} { width:#{$i}px !important; }
-    .h#{$i} { height:#{$i}px !important; }
-}
+    
+    @if $i%5 == 0 or $i%2 == 0 {
+        .pd#{$i}  { padding:#{$i}px !important; }
+        .mg#{$i}  { margin:#{$i}px !important; }
+        .w#{$i}p { width:#{$i}% !important; }
+        .h#{$i}p { height:#{$i}% !important; }
+        @include tblr("m","margin",$i,"px");
+        @include tblr("p","padding",$i,"px");
 
+        .radius#{$i} { border-radius:#{$i}px; }
+    }
+}
+@for $i from 0 to 1001 {
+    @if $i%5 == 0 or $i%2 == 0 {
+        .w#{$i} { width:#{$i}px !important; }
+        .h#{$i} { height:#{$i}px !important; }
+    }
+}
 
 /* 텍스트 컬러 */
 // $i:000;
@@ -49,6 +61,11 @@ $i:0;
     }
     .#{$name}#{$num} { #{$css} : #{$val} !important; }
 }
+@mixin wbdColor($name,$css){
+    @include colorSetter(#{$name+"-white"},$css,$white,"");
+    @include colorSetter(#{$name+"-black"},$css,$black,"");
+    @include colorSetter(#{$name+"-dark"},$css,$dark,"");
+}
 @mixin cssColor($colorV,$colorNM,$ii,$name,$css){
     $index:000;
     @for $j from 1 to length($colorV) {
@@ -56,17 +73,18 @@ $i:0;
         $index : $index + 100;
     }
 }
-.tc-white { color:$white !important; }
-.tc-black { color:$black !important; }
-.tc-dark  { color:$dark !important;  }
+@include wbdColor("t","color");
 @for $ii from 1 to length($colorVar) {
     @include cssColor(nth($colorVar,$ii),$colorName,$ii,"t","color");
 }
 /* 배경 컬러 */
-.bgc-white { background-color:$white !important; }
-.bgc-black { background-color:$black !important; }
-.bgc-dark  { background-color:$dark !important;  }
+@include wbdColor("bg","background");
+@include wbdColor("bgc","background-color");
 @for $ii from 1 to length($colorVar) {
     @include cssColor(nth($colorVar,$ii),$colorName,$ii,"bg","background");
     @include cssColor(nth($colorVar,$ii),$colorName,$ii,"bgc","background-color");
+}
+
+@for $i from 1 to 10 {
+    .shadow#{$i*100} { box-shadow : 0 #{$i}px #{$i*2}px rgba(0,0,0,0.2); }
 }

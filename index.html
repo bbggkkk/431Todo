@@ -9,23 +9,41 @@
     <script     src="/js/431view.js"></script>
 </head>
 <style>
-    div * { all:unset; }
+    .clearfix:after {
+        content:"";
+        display:block;
+        height:0;
+        clear:both;
+    }
     .input {
-        padding-bottom:5px; border-bottom:1px solid #dddee0; text-align:center; font-weight:bold; display:block;
+        padding-bottom:5px; border-bottom:1px solid #dddee0; text-align:center; font-weight:bold; display:block; float:left;
     }
     .input::placeholder {
         color:#ccc;
     }
     .ui-btn {
-        text-align:center; font-weight:bold;
+        text-align:center; font-weight:bold; cursor: pointer; transition-property:shadow transform; transition-duration:0.3s; box-shadow:0 4px 8px rgba(0,0,0,0.2);
+    }
+    .ui-btn:hover {
+        transform:scale(1.04) translateY(-1px); box-shadow:0 6px 12px rgba(0,0,0,0.15);
+    }
+    .ui-btn:active {
+        transform:scale(0.97) translateY(1px); box-shadow:0 1px 2px rgba(0,0,0,0.2);
     }
 </style>
 <body>
-    <div    style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); box-shadow:0 8px 16px rgba(0,0,0,0.2); border-radius:12px; padding:30px;">
-        <div>
-            <input  class="input mb20"
+    <div    class="pd20 radius20 shadow500"
+            style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">
+        <div    class="w500">
+            <p><span></span><span></span></p>
+        </div>
+        <div    class="W100p">
+            <input  class="input mb20 w80p color"
                     placeholder="#000000">
-            <button class="ui-btn w100p bgc-blue">Generate</button>
+            <input  class="input mb20 w20p step"
+                    placeholder="STEP">
+            <button class="ui-btn w100p bgc-blue t-white radius6 pd10"
+                    onclick="colorStepGenerator(document.querySelector('.color').value,document.querySelector('.step').value)">Generate</button>
         </div>
     </div>
 </body>
