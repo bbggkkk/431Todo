@@ -8,11 +8,25 @@
     <link       rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script     src="/js/431view.js"></script>
 </head>
+<style>
+    div * { all:unset; }
+    .input {
+        padding-bottom:5px; border-bottom:1px solid #dddee0; text-align:center; font-weight:bold; display:block;
+    }
+    .input::placeholder {
+        color:#ccc;
+    }
+    .ui-btn {
+        text-align:center; font-weight:bold;
+    }
+</style>
 <body>
-    <div>
-
-        
-
+    <div    style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); box-shadow:0 8px 16px rgba(0,0,0,0.2); border-radius:12px; padding:30px;">
+        <div>
+            <input  class="input mb20"
+                    placeholder="#000000">
+            <button class="ui-btn w100p bgc-blue">Generate</button>
+        </div>
     </div>
 </body>
 </html>
