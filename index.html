@@ -15,35 +15,43 @@
         height:0;
         clear:both;
     }
+    .fl { float:left; }
     .input {
-        padding-bottom:5px; border-bottom:1px solid #dddee0; text-align:center; font-weight:bold; display:block; float:left;
+        padding-bottom:5px; border-bottom:1px solid #dddee0; font-weight:bold; display:block;
+    }
+    .input.err {
+        border-color:#e63d3d;
     }
     .input::placeholder {
         color:#ccc;
     }
     .ui-btn {
         text-align:center; font-weight:bold; cursor: pointer; transition-property:shadow transform; transition-duration:0.3s; box-shadow:0 4px 8px rgba(0,0,0,0.2);
+        -webkit-user-select:none; user-select:none;
     }
     .ui-btn:hover {
-        transform:scale(1.04) translateY(-1px); box-shadow:0 6px 12px rgba(0,0,0,0.15);
+        transform:scale(1.01) translateY(-1px); box-shadow:0 6px 12px rgba(0,0,0,0.15);
     }
     .ui-btn:active {
-        transform:scale(0.97) translateY(1px); box-shadow:0 1px 2px rgba(0,0,0,0.2);
+        transform:scale(0.99) translateY(1px); box-shadow:0 1px 2px rgba(0,0,0,0.2);
     }
 </style>
 <body>
-    <div    class="pd20 radius20 shadow500"
-            style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">
-        <div    class="w500">
-            <p><span></span><span></span></p>
-        </div>
-        <div    class="W100p">
-            <input  class="input mb20 w80p color"
-                    placeholder="#000000">
-            <input  class="input mb20 w20p step"
-                    placeholder="STEP">
-            <button class="ui-btn w100p bgc-blue t-white radius6 pd10"
-                    onclick="colorStepGenerator(document.querySelector('.color').value,document.querySelector('.step').value)">Generate</button>
+    <div    class="pd20 radius12 shadow500"
+            style="position:absolute; bottom:20px; right:20px;">
+        <div    class="w240 clearfix"   data-431-comp="inputWrap">
+            <div    class="fl mb20 w75p">
+                <p class="mb5 t-gray400" style="font-size:12px;">Color Code</p>
+                <input  class="input w100p color"
+                        placeholder="#000000">
+            </div>
+            <div    class="w5p h5" style="float:left;"></div>
+            <div    class="fl mb20 w20p">
+                <p class="mb5 t-gray400" style="font-size:12px;">Step</p>
+                <input  class="input w100p step"
+                    placeholder="10" value="10">
+            </div>
+            <button class="ui-btn w100p bgc-blue t-white radius6 pd10">Generate</button>
         </div>
     </div>
 </body>
