@@ -12,7 +12,7 @@
             if(errEle.length){
                 console.error(errEle,"is Empty");
             }else{
-                colorStepGenerator(hexEle.value,stepEle.value);
+                drawList(document.querySelector("[data-431-comp='list']"),colorStepGenerator(hexEle.value,stepEle.value));
             }
     
         });
@@ -27,14 +27,13 @@ function colorStepGenerator ($hex,$step){
     let h = $hsl[0];
     let s = $hsl[1];
     let v = $hsl[2];
-    let step = $step ? Number($step) : 10;
+    let step = $step ? 100/Number($step) : 10;
 
     let hslArr = [];
 
     for(let i=0; i<=100; i+=step){
         hslArr.push(hslToHex("hsl("+h+","+s+","+i/100+")"));
     }
-    console.log(hslArr);
     return hslArr;
 }
 
@@ -147,4 +146,15 @@ function addClass($ele,$class){
 function removeClass($ele,$class){
     $ele.classList.remove($class);
     return true;
+}
+
+function drawList($listEle,$listData){
+    $listEle.row = $listEle.querySelectorAll("[data-431-comp='list-row']")[0];
+    $listEle.innerHTML = "";
+    for(let i in $listData){
+        let row = $listEle.row.cloneNode(true);
+        row.innerHTML = $listData[i];
+        row.setAttribute("style","background:"+$listData[i]+";");
+        $listEle.append(row);
+    }
 }
