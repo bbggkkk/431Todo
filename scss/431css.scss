@@ -20,6 +20,9 @@ body,html,ol,ul,li,a,img,button,input {
     //초기화
     all:unset;
 }
+input,button {
+    color:$dark;
+}
 body {
     font-family:"Noto Sans KR",sans-serif;
     color:$dark;

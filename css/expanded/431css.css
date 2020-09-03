@@ -14,6 +14,10 @@ body, html, ol, ul, li, a, img, button, input {
   all: unset;
 }
 
+input, button {
+  color: #33393F;
+}
+
 body {
   font-family: "Noto Sans KR",sans-serif;
   color: #33393F;

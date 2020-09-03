@@ -64,10 +64,11 @@ function hexToHsl ($hex){
                 break;
         }
         $h*=60;
-        if($h == 0) $h += 360;
+        if($h <= 0) $h += 360;
         h = $h;
-        s = max == 0 ? 0 : delta/((1-Math.abs(l*2-1)));
+        s = delta == 0 ? 0 : delta/((1-Math.abs(l*2-1)));
     }
+    console.log(h,s,l);
     let hsl = "hsl("+h+","+s+","+l+")";
     return hsl;
 }
@@ -105,6 +106,9 @@ function hslToHex ($hsl){
         case 5 :
             r = c; g = 0; b = x;
             break;
+        case 6 :
+            r = c; g = x; b = 0;
+            break;
     }
     r = Math.round((r+m)*255);
     g = Math.round((g+m)*255);
@@ -128,6 +132,7 @@ function inputErrCheck($ele){
         if(inputBlankCheck($ele[i])){
             errEle.push($ele[i]);
             addClass($ele[i],err);
+            errEle[0].focus();
         }
         else{
             removeClass($ele[i],err);
