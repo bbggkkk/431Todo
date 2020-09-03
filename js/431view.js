@@ -68,7 +68,6 @@ function hexToHsl ($hex){
         h = $h;
         s = delta == 0 ? 0 : delta/((1-Math.abs(l*2-1)));
     }
-    console.log(h,s,l);
     let hsl = "hsl("+h+","+s+","+l+")";
     return hsl;
 }
