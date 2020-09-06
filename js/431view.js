@@ -1,7 +1,8 @@
 (function(){
 
     window.onload = function(){
-        const btn = document.querySelector("button.ui-btn");
+        window.strg  = [];
+        const btn = document.querySelector("button.ui-btn.gen");
     
         btn.addEventListener("click",function(e){
             const hexEle    = document.querySelector(".color");
@@ -16,7 +17,100 @@
             }
     
         });
-    };
+
+        const btn2 = document.querySelector("button.ui-btn.saying");
+    
+        btn2.addEventListener("click",function(e){
+            const say        = document.querySelector(".sayInput");
+            const ele        = document.querySelector("[data-431-comp='list']");
+            const gStrg      = window.strg;
+
+            const data       = {
+                say     : say.value,
+                ele     : ele,
+                gStrg   : gStrg
+            }
+            
+            subject.update("saveData",data);
+    
+        });
+
+        
+
+
+
+
+
+
+        let Subject = function(){
+            let observers = [];
+
+            return {
+                subscribe : function(observer){
+                    observers.push(observer);
+                },
+                unsubscribe : function(observer){
+                    let idx = observers.indexOf(observer);
+                    if(idx != -1){
+                        observers.splice(idx,1);
+                    }else{
+                        console.error("no observer",observers,observer);
+                    }
+                },
+                updateOne : function(observer,serviceName,data){
+                    observer[serviceName].call(observer,data);
+                },
+                update : function(serviceName,data){
+                    for(let i in observers){
+                        observers[i][serviceName].call(observers[i],data);
+                    }
+                }
+            }
+        }
+        //Subject 선언
+
+        let Observer = function(){
+            return {
+                log : function(data){
+                    console.log(this,data);
+                },
+                alert : function(data){
+                    alert(data);
+                },
+                prompt : function(data){
+                    prompt(data);
+                }
+                ,saveData : function(data){
+                    let gStrg = {}
+                    gStrg.listData = window.strg ? window.strg : [];
+                    gStrg.listData.push({say:data.say});
+                    if(!data.ele) return;
+                    this.drawList({
+                        ele:data.ele,
+                        say:gStrg.listData
+                    });
+                }
+                ,drawList : function(data){
+                    const $listEle = data.ele;
+                    const $listData = data.say;
+                    $listEle.row = $listEle.querySelectorAll("[data-431-comp='list-row']")[0];
+                    $listEle.innerHTML = "";
+                    for(let i in $listData){
+                        let row = $listEle.row.cloneNode(true);
+                        row.innerHTML = $listData[i].say;
+                        row.setAttribute("style","background:"+$listData[i]+";");
+                        $listEle.append(row);
+                    }
+                }
+            }
+        }
+
+        let subject = new Subject();
+        let sub = new Observer();
+        subject.subscribe(sub);
+        
+
+    };//onload
 
 })();
 
